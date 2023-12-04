@@ -1,0 +1,17 @@
+#main{
+    background-color: red;
+    width: 400px;
+    margin-left: 50%;
+    margin-top: 10%;
+    transform: translate(-50%, -10%);
+}
+
+#taskContainer{
+    margin-left: 7%;
+    margin-top: 5%;
+}
+
+#taskDelete{
+    position: absolute;
+    right: 15%;
+}
