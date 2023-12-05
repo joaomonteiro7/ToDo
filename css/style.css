@@ -8,10 +8,14 @@
 
 #taskContainer{
     margin-left: 7%;
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 #taskDelete{
     position: absolute;
     right: 15%;
+}
+
+#taskInput{
+    margin-bottom: 3%;
 }

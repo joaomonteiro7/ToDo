@@ -1,6 +1,36 @@
 window.addEventListener("load", () => {
   const btnAddTask = document.querySelector("#addTask");
   const taskContainer = document.querySelector("#taskContainer");
+  let taskObj = {};
+
+  if (localStorage.getItem("tasks") != null) {
+    taskObj = JSON.parse(localStorage.getItem("tasks"));
+    console.log(taskObj);
+    for (key in taskObj) {
+      const taskDiv = document.createElement("div");
+      taskDiv.setAttribute("id", "task");
+
+      const taskCheckBox = document.createElement("input");
+      taskCheckBox.setAttribute("type", "checkbox");
+      taskCheckBox.setAttribute("id", "checkTaskDone");
+      taskCheckBox.checked = taskObj[key];
+
+      taskDiv.appendChild(taskCheckBox);
+
+      const taskLabel = document.createElement("label");
+      taskLabel.setAttribute("class", "taskName");
+      taskLabel.textContent = key;
+      taskCheckBox.checked ? taskLabel.style.textDecoration = "line-through" :taskLabel.style.textDecoration = "none"
+      taskDiv.appendChild(taskLabel);
+
+      const iconDelete = document.createElement("span");
+      iconDelete.setAttribute("id", "taskDelete");
+      iconDelete.setAttribute("class", "fa-solid fa-xmark");
+      taskDiv.appendChild(iconDelete);
+
+      taskContainer.appendChild(taskDiv);
+    }
+  }
 
   btnAddTask.addEventListener("click", () => {
     /* individual div for tasks */
@@ -15,7 +45,7 @@ window.addEventListener("load", () => {
 
     /* get text value form input */
     const taskName = document.querySelector("#taskInput").value;
-
+    if(taskName.length > 0 && taskName.length < 38){
     /* create a label for task name */
     const taskLabel = document.createElement("label");
     /* give an id to the label */
@@ -35,6 +65,9 @@ window.addEventListener("load", () => {
 
     /* add the individual div to the task container */
     taskContainer.appendChild(taskDiv);
+    saveTasks();
+    }
+
   });
 
   document.body.addEventListener("click", () => {
@@ -42,7 +75,9 @@ window.addEventListener("load", () => {
     for (let i = 0; i < allTasks.length; i++) {
       allTasks[i].addEventListener("click", () => {
         let parentNode = allTasks[i].parentElement; //get parent node of clicked element
-        parentNode.remove(); //delete that parent node
+        parentNode.remove(); //delete that parent node\
+      saveTasks();
+
       });
     }
 
@@ -54,7 +89,22 @@ window.addEventListener("load", () => {
         taskLabel.style.textDecoration = allCheckBox[i].checked
           ? "line-through"
           : "none";
+      saveTasks();
+
       });
     }
   });
+
+  function saveTasks() {
+    const tasksDiv = document.querySelectorAll("#task");
+    const taskObj = {};
+    for (let i = 0; i < tasksDiv.length; i++) {
+      const taskLabel = tasksDiv[i].querySelector("label");
+      const taskCheckBox = tasksDiv[i].querySelector("input");
+      taskObj[taskLabel.textContent] = taskCheckBox.checked;
+
+      const stringifiedObj = JSON.stringify(taskObj);
+      localStorage.setItem("tasks", stringifiedObj);
+    }
+  }
 });
