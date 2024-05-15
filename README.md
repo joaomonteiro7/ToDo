@@ -3,6 +3,10 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/joaomonteiro7/ToDo)](https://github.com/joaomonteiro7/ToDo/issues)
 
+## Language
+- [Portuguese](#pt)
+- [English](#eng)
+
 ## PT
 
 Uma aplicação simples de lista de tarefas (To-Do List) onde você pode adicionar, eliminar e marcar tarefas como feitas.
